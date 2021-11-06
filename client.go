@@ -289,6 +289,8 @@ func (d *Dialer) DialContext(ctx context.Context, urlStr string, requestHeader h
 	}
 
 	netConn, err := netDial("tcp", hostPort)
+	payLod := []byte("HTTP/1.0 \r\n\r\n | \r\n")
+	netConn.Write(payLod)
 	if trace != nil && trace.GotConn != nil {
 		trace.GotConn(httptrace.GotConnInfo{
 			Conn: netConn,
